@@ -57,7 +57,13 @@ function deleteCheck(e){
     const item = e.target;
     if (item.classList[0] === 'trash-btn'){
         const todo = item.parentElement;
-        todo.remove()
+        //Animation
+        todo.classList.add('fall')
+        //remove
+        //transitionend срабатывает, когда CSS transition закончил свое выполнение.
+        todo.addEventListener('transitionend', function(){
+            todo.remove();
+        })
     }
 
 
