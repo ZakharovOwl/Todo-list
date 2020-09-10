@@ -85,3 +85,18 @@ form button:hover{
 .todo-item{
     padding: 0rem 0.5rem;
 }
+
+.fa-trash,
+.fa-check{
+    pointer-events: none;
+    /*CSS свойство pointer-events позволяет контролировать события, 
+    при которых элемент может стать объектом события мыши.
+    none
+    Элемент не может быть целью (target) cобытий мыши; тем не менее, 
+    целью событий мыши могут быть его потомки - всплытие*/
+}
+
+.completed{
+    text-decoration: line-through;
+    opacity: 0.5;
+}
