@@ -24,7 +24,7 @@ function addTodo(event){
     newTodo.innerText = todoInput.value;
     newTodo.classList.add('todo-item');
     todoDiv.appendChild(newTodo);
-
+    //
     //CHECK MARK BUTTON
 
 
@@ -100,3 +100,17 @@ function filterTodo(e){
             }
         });
     }
+
+//Local
+
+function saveLocalTodos(todo){
+    //Check - Do i already have thing in there?
+    let todos;
+    if(localStorage.getItem('todos') === null){
+        todos = [];
+    } else {
+        todos = JSON.parse(localStorage.getItem('todos'))
+    }
+    todos.push(todo);
+    localStorage.setItem('todos', JSON.stringify(todos))
+}
