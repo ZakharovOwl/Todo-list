@@ -65,7 +65,9 @@ function deleteCheck(e){
         const todo = item.parentElement;
         //Animation
         todo.classList.add('fall')
-        //remove
+        //remove Local
+        removeLocalTodos(todo);
+        //remove 
         //transitionend срабатывает, когда CSS transition закончил свое выполнение.
         todo.addEventListener('transitionend', function(){
             todo.remove();
@@ -105,7 +107,7 @@ function filterTodo(e){
         });
     }
 
-//Local
+//localStorage
 
 function saveLocalTodos(todo){
     //Check - Do i already have thing in there?
@@ -127,31 +129,45 @@ function getTodos(){
         todos = JSON.parse(localStorage.getItem('todos'))
     }
 
-    todos.forEach(todo){
+    todos.forEach(function(todo){
+        
         const todoDiv = document.createElement('div');
         todoDiv.classList.add('todo');
     //Create LI
 
         const newTodo = document.createElement('li');
-        newTodo.innerText = todoInput.value;
+        newTodo.innerText = todo;
         newTodo.classList.add('todo-item');
         todoDiv.appendChild(newTodo);
 
     //CHECK MARK BUTTON
 
-    const completedButton = document.createElement('button')
-    completedButton.innerHTML = '<i class="fas fa-check"></i>';
-    completedButton.classList.add('complete-btn');
-    todoDiv.appendChild(completedButton);
+        const completedButton = document.createElement('button')
+        completedButton.innerHTML = '<i class="fas fa-check"></i>';
+        completedButton.classList.add('complete-btn');
+        todoDiv.appendChild(completedButton);
 
     // CHECK trash BUTTON
-    const trashButton = document.createElement('button')
-    trashButton.innerHTML = '<i class="fas fa-trash"></i>';
-    trashButton.classList.add('trash-btn');
-    todoDiv.appendChild(trashButton);
+        const trashButton = document.createElement('button')
+        trashButton.innerHTML = '<i class="fas fa-trash"></i>';
+        trashButton.classList.add('trash-btn');
+        todoDiv.appendChild(trashButton);
     
     //APPEND TI LIST
-    todoList.appendChild(todoDiv)
+        todoList.appendChild(todoDiv)
+    })
+}
 
+function removeLocalTodos(todo){
+    //Check - Do i already have thing in there?
+    let todos;
+    if(localStorage.getItem('todos') === null){
+        todos = [];
+    } else {
+        todos = JSON.parse(localStorage.getItem('todos'))
     }
+    // console.log(todo.children[0].innerText); - обращение к li-text
+    const todoIndex = todo.children[0].innerText;
+    todos.splice(todos.indexOf(todoIndex),1)
+    localStorage.setItem('todos', JSON.stringify(todos))
 }
